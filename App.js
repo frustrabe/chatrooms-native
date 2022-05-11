@@ -4,8 +4,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import ChatroomsScreen from "./src/screens/ChatroomsScreen";
 import ChatroomScreen from "./src/screens/ChatroomScreen";
+import * as WebBrowser from "expo-web-browser";
 
 const Stack = createNativeStackNavigator();
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   return (
