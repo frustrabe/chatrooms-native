@@ -1,26 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, StyleSheet, StatusBar } from "react-native";
 import ChatroomListItem from "../components/ChatroomListItem";
-
-const chatrooms = [
-  {
-    id: 1,
-    name: "Books 📚",
-    description: "Hi, and welcome to the hub of book lovers!",
-  },
-  {
-    id: 2,
-    name: "Coding 💻",
-    description: "<Hello World, room compiled successfully!/>",
-  },
-  {
-    id: 3,
-    name: "Running 👟",
-    description: "Hey! Put on the shoes and go for it!",
-  },
-];
+import { getChatrooms } from "../data/chatrooms";
 
 export default function ChatroomsScreen({ navigation }) {
+  const [chatrooms, setChatrooms] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const chatrooms = await getChatrooms();
+      setChatrooms(chatrooms);
+    };
+
+    fetchData();
+  }, []);
+
   const navigateToChatroom = (chatroomId) =>
     navigation.navigate("Chatroom", { chatroomId: chatroomId });
 
