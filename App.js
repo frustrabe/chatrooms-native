@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./src/components/HomeScreen";
-import ChatroomsScreen from "./src/components/ChatroomsScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import ChatroomsScreen from "./src/screens/ChatroomsScreen";
+import ChatroomScreen from "./src/screens/ChatroomScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
           options={{ title: "Welcome" }}
         />
         <Stack.Screen name="Chatrooms" component={ChatroomsScreen} />
+        <Stack.Screen name="Chatroom" component={ChatroomScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
