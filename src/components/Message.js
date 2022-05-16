@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Message({ name, text }) {
   return (
@@ -11,15 +12,22 @@ export default function Message({ name, text }) {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
+    backgroundColor: "#006AFF",
+    padding: 10,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 8,
+    borderRadius: 20
   },
   title: {
-    fontSize: 32,
+    fontSize: 10,
+    justifyContent: "center",
+
   },
   text: {
-    fontSize: 24,
+    flex: 1,
+    fontSize: 20,
+    includeFontPadding: false,
+    textAlignVertical: "center",
+    color: 'white',
   },
 });

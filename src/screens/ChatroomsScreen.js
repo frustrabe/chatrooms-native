@@ -28,19 +28,27 @@ export default function ChatroomsScreen({ navigation }) {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={chatrooms}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
+
+
+    <FlatList
+      style={styles.list}
+      data={chatrooms}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+    />
+
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    margin: StatusBar.currentHeight || 0,
+    backgroundColor: "#fff"
+  },
+  list: {
+    flex: 1,
+    backgroundColor: "fff",
   },
 });

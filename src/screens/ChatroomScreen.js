@@ -39,7 +39,8 @@ export default function ChatroomScreen({ route }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Messages chatroom={chatroom} />
+      <Messages
+        chatroom={chatroom} />
 
       <Toolbox />
     </View>
@@ -53,4 +54,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  bubble: {
+    justifyContent: "flex-start",
+    backgroundColor: '#7C83FD',
+  }
 });
