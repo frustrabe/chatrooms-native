@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { getChatroom } from "../data/chatrooms";
 import Messages from "../components/Messages";
 import Toolbox from "../components/Toolbox";
-import {
-  useFonts,
-  RobotoMono_400Regular,
-  RobotoMono_500Medium,
-  RobotoMono_700Bold,
-} from '@expo-google-fonts/roboto-mono';
 
 export default function ChatroomScreen({ route }) {
   const { chatroomId } = route.params;
 
   const [chatroom, setChatroom] = useState(null);
+
+  console.log("chatrooms render");
 
   const [user] = useAuthState(auth);
 
@@ -27,11 +23,12 @@ export default function ChatroomScreen({ route }) {
     );
   }
 
+  const fetchData = async () => {
+    const chatroom = await getChatroom(chatroomId);
+    setChatroom(chatroom);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const chatroom = await getChatroom(chatroomId);
-      setChatroom(chatroom);
-    };
     fetchData();
   }, [chatroomId]);
 
@@ -45,14 +42,10 @@ export default function ChatroomScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <Messages
-        chatroom={chatroom} />
-
-      <Toolbox />
+      <Messages chatroom={chatroom} />
+      <Toolbox fetchData={fetchData} chatroomId={chatroomId} />
     </View>
   );
-
-  return <SafeAreaView></SafeAreaView>;
 }
 
 const styles = StyleSheet.create({
@@ -63,6 +56,6 @@ const styles = StyleSheet.create({
   bubble: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    backgroundColor: '#7C83FD',
-  }
+    backgroundColor: "#7C83FD",
+  },
 });
