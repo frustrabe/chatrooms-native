@@ -1,7 +1,7 @@
 import { TextInput, View } from "react-native";
 import { useState, forwardRef } from "react";
 import { saveMessage } from "../data/chatrooms";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 
@@ -14,9 +14,9 @@ const Toolbox = forwardRef((props, ref) => {
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <TextInput
         style={{
-          margin: 16,
+          margin: 12,
           padding: 8,
-          width: "80%",
+          width: "70%",
           borderWidth: 0.5,
           borderRadius: 8,
           fontFamily: "RobotoMono_400Regular",
@@ -25,10 +25,16 @@ const Toolbox = forwardRef((props, ref) => {
         value={text}
         placeholder="Type something.."
       />
-      <Ionicons
+      <AntDesign style={{ width: "10%", margin: 4, padding: 4, }}
+        name="picture"
+        size={30}
+        color="#006AFF"
+      />
+
+      <Ionicons style={{ width: "10%", margin: 4, padding: 4, }}
         name="send"
-        size={28}
-        color="black"
+        size={30}
+        color="#006AFF"
         onPress={async () => {
           await saveMessage(text, chatroomId, user.photoURL, user.displayName);
           setText("");
