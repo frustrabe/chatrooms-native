@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { getChatroom } from "../data/chatrooms";
 import Messages from "../components/Messages";
 import Toolbox from "../components/Toolbox";
@@ -10,10 +10,9 @@ export default function ChatroomScreen({ route }) {
   const { chatroomId } = route.params;
 
   const [chatroom, setChatroom] = useState(null);
-
-  console.log("chatrooms render");
-
   const [user] = useAuthState(auth);
+
+  const flatListRef = useRef();
 
   if (!user) {
     return (
@@ -42,8 +41,12 @@ export default function ChatroomScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <Messages chatroom={chatroom} />
-      <Toolbox fetchData={fetchData} chatroomId={chatroomId} />
+      <Messages chatroom={chatroom} ref={flatListRef} />
+      <Toolbox
+        fetchData={fetchData}
+        chatroomId={chatroomId}
+        ref={flatListRef}
+      />
     </View>
   );
 }

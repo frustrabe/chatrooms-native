@@ -1,28 +1,44 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { VirtualizedList } from "react-native";
 import Message from "./Message";
-import Toolbox from "./Toolbox";
-import { useRef } from "react";
+import { forwardRef, useEffect } from "react";
 
-export default function Messages({ chatroom }) {
-  const { name, messages } = chatroom;
+const Messages = forwardRef((props, ref) => {
+  const { chatroom } = props;
+  const { messages } = chatroom;
+
+  const getItem = (data, index) => {
+    return data[index];
+  };
+
+  const getItemCount = (data) => data.length;
 
   const renderItem = ({ item }) => (
     <Message
       name={item.name}
+      avatar={item.avatar}
       text={item.text}
       uid={item.uid}
-      created_at={item.created_at}
+      createdAt={item.createdAt}
+      humanizedCreatedAt={item.humanizedCreatedAt}
     />
   );
 
+  useEffect(() => {
+    ref.current.scrollToEnd({ animated: true });
+  }, [messages]);
+
   return (
-    <FlatList
-      ref={flatListRef}
+    <VirtualizedList
+      ref={ref}
       data={messages}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
-      onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
+      onLayout={() => ref.current.scrollToEnd({ animated: true })}
+      getItemCount={getItemCount}
+      getItem={getItem}
+      initialNumToRender={messages.length}
     />
   );
-}
+});
+
+export default Messages;

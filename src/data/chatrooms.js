@@ -8,8 +8,11 @@ import {
   query,
   orderBy,
   limit,
+  where,
 } from "firebase/firestore";
 import { db, auth } from "../firebase";
+
+import moment from "moment";
 
 export async function getChatrooms() {
   const chatroomsRef = collection(db, "chatrooms");
@@ -30,38 +33,47 @@ export async function getChatrooms() {
 }
 
 function compare(a, b) {
-  if (a.created_at < b.created_at) {
+  if (a.createdAt < b.createdAt) {
     return -1;
   }
-  if (a.created_at > b.created_at) {
+  if (a.createdAt > b.createdAt) {
     return 1;
   }
   return 0;
 }
 
-export async function getChatroom(chatroom_id) {
-  const chatroomRef = doc(db, "chatrooms", chatroom_id);
+export async function getChatroom(chatroomId) {
+  const chatroomRef = doc(db, "chatrooms", chatroomId);
   const chatroomSnap = await getDoc(chatroomRef);
 
   if (chatroomSnap.exists()) {
-    const messagesRef = collection(db, "chatrooms", chatroom_id, "messages");
-    const q = query(messagesRef, orderBy("created_at", "desc"), limit(50));
+    const messagesRef = collection(db, "chatrooms", chatroomId, "messages");
+    const q = query(messagesRef, orderBy("createdAt", "desc"), limit(50));
     const messagesSnap = await getDocs(q);
 
     const messages = [];
     messagesSnap.forEach((doc) => {
+      const createdAt = doc.data().createdAt.seconds;
+
+      const humanizedDate =
+        moment.duration(moment().unix() - createdAt, "second").humanize() +
+        " ago";
+
       const message = {
         id: doc.id,
         text: doc.data().text,
         uid: doc.data().uid,
-        created_at: doc.data().created_at.seconds,
+        name: doc.data().displayName,
+        avatar: doc.data().photoURL,
+        createdAt: createdAt,
+        humanizedCreatedAt: humanizedDate,
       };
 
       messages.push(message);
     });
 
     const chatroom = {
-      id: chatroom_id,
+      id: chatroomId,
       name: chatroomSnap.data().name,
       description: chatroomSnap.data().description,
       messages: messages.sort(compare),
@@ -73,12 +85,19 @@ export async function getChatroom(chatroom_id) {
   return null;
 }
 
-export async function saveMessage(inputText, chatroom_id) {
-  const messagesRef = collection(db, "chatrooms", chatroom_id, "messages");
+export async function saveMessage(
+  inputText,
+  chatroomId,
+  photoURL,
+  displayName
+) {
+  const messagesRef = collection(db, "chatrooms", chatroomId, "messages");
 
   return await addDoc(messagesRef, {
     text: inputText,
     uid: auth.currentUser.uid,
-    created_at: Timestamp.now(),
+    createdAt: Timestamp.now(),
+    displayName: displayName,
+    photoURL: photoURL,
   });
 }

@@ -1,16 +1,27 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { StyleSheet, Text, View } from "react-native";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { auth } from "../firebase";
 
-export default function Message({ name, text, uid, created_at }) {
+export default function Message({
+  name,
+  text,
+  uid,
+  avatar,
+  humanizedCreatedAt,
+}) {
   const [user] = useAuthState(auth);
 
   if (user.uid === uid) {
     return (
       <View style={[styles.message, styles.me]}>
-        <Text style={styles.title}>{uid}</Text>
-        <Text style={styles.title}>{created_at}</Text>
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: avatar,
+          }}
+        />
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.title}>{humanizedCreatedAt}</Text>
         <Text style={styles.text}>{text}</Text>
       </View>
     );
@@ -18,8 +29,14 @@ export default function Message({ name, text, uid, created_at }) {
 
   return (
     <View style={[styles.message, styles.them]}>
-      <Text style={styles.title}>{uid}</Text>
-      <Text style={styles.title}>{created_at}</Text>
+      <Image
+        style={styles.avatar}
+        source={{
+          uri: avatar,
+        }}
+      />
+      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.title}>{humanizedCreatedAt}</Text>
       <Text style={styles.text}>{text}</Text>
     </View>
   );
@@ -55,5 +72,10 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     color: "white",
     fontFamily: "RobotoMono_400Regular",
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
 });

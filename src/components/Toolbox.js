@@ -1,10 +1,14 @@
-import { StyleSheet, TextInput, View, Pressable, Text } from "react-native";
-import { useState } from "react";
+import { TextInput, View } from "react-native";
+import { useState, forwardRef } from "react";
 import { saveMessage } from "../data/chatrooms";
 import { Ionicons } from "@expo/vector-icons";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
 
-export default function Toolbox({ chatroomId, fetchData }) {
+const Toolbox = forwardRef((props, ref) => {
+  const { chatroomId, fetchData } = props;
   const [text, setText] = useState("");
+  const [user] = useAuthState(auth);
 
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -26,11 +30,13 @@ export default function Toolbox({ chatroomId, fetchData }) {
         size={28}
         color="black"
         onPress={async () => {
-          await saveMessage(text, chatroomId);
+          await saveMessage(text, chatroomId, user.photoURL, user.displayName);
           setText("");
           await fetchData();
         }}
       />
     </View>
   );
-}
+});
+
+export default Toolbox;
