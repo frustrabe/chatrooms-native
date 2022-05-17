@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }) {
 
 
   useEffect(() => {
-    if (!user) {
+    if (user) {
       navigation.navigate("Chatrooms")
     }
   }, [user])

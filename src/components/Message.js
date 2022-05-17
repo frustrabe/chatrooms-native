@@ -12,7 +12,7 @@ export default function Message({ name, text }) {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#006AFF",
+    backgroundColor: "#006AFF", //#001D6E//
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 8,
