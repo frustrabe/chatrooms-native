@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, StyleSheet, StatusBar } from "react-native";
 import ChatroomListItem from "../components/ChatroomListItem";
 import { getChatrooms } from "../data/chatrooms";
+import {
+  useFonts,
+  RobotoMono_400Regular,
+  RobotoMono_500Medium,
+  RobotoMono_700Bold,
+} from '@expo-google-fonts/roboto-mono';
 
 export default function ChatroomsScreen({ navigation }) {
   const [chatrooms, setChatrooms] = useState(null);

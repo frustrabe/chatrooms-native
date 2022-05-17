@@ -5,6 +5,12 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { getChatroom } from "../data/chatrooms";
 import Messages from "../components/Messages";
 import Toolbox from "../components/Toolbox";
+import {
+  useFonts,
+  RobotoMono_400Regular,
+  RobotoMono_500Medium,
+  RobotoMono_700Bold,
+} from '@expo-google-fonts/roboto-mono';
 
 export default function ChatroomScreen({ route }) {
   const { chatroomId } = route.params;

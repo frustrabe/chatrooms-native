@@ -8,6 +8,12 @@ import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import * as Google from "expo-auth-session/providers/google";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import {
+  useFonts,
+  RobotoMono_400Regular,
+  RobotoMono_500Medium,
+  RobotoMono_700Bold,
+} from '@expo-google-fonts/roboto-mono';
 
 export default function HomeScreen({ navigation }) {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -41,7 +47,8 @@ export default function HomeScreen({ navigation }) {
     <View style={{
       flex: 1,
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+
     }}>
 
       <View style={{
@@ -51,7 +58,7 @@ export default function HomeScreen({ navigation }) {
         justifyContent: "center",
         padding: 5,
       }}>
-        <Text style={{ fontWeight: "bold" }}>
+        <Text style={{ fontFamily: 'RobotoMono_500Medium' }}>
           Log In with:
         </Text>
       </View>
@@ -82,7 +89,7 @@ export default function HomeScreen({ navigation }) {
 
       {user ? (
         <Text style={{
-          fontWeight: "bold",
+          fontFamily: 'RobotoMono_500Medium',
           padding: 20,
         }}>
           Logged in as: {user.email}

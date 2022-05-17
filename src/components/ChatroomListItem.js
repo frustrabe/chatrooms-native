@@ -28,14 +28,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#E3EFFF",
+    fontFamily: 'RobotoMono_400Regular',
 
   },
   title: {
     fontSize: 32,
     color: 'white',
+    fontFamily: 'RobotoMono_500Medium',
   },
   description: {
     fontSize: 20,
     color: 'white',
+    fontFamily: 'RobotoMono_400Regular',
   },
 });

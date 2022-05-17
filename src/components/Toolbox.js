@@ -13,7 +13,8 @@ export default function Toolbox({ chatroomId }) {
         padding: 8,
         width: "80%",
         borderWidth: 0.5,
-        borderRadius: 8
+        borderRadius: 8,
+        fontFamily: 'RobotoMono_400Regular'
       }}
         onChangeText={onChangeText}
         value={text}

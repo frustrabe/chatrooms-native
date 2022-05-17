@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 8,
-    borderRadius: 20
+    borderRadius: 20,
+    fontFamily: 'RobotoMono_400Regular',
   },
   title: {
     fontSize: 10,
     justifyContent: "center",
+    fontFamily: 'RobotoMono_400Regular',
 
   },
   text: {
@@ -29,5 +31,6 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
     textAlignVertical: "center",
     color: 'white',
+    fontFamily: 'RobotoMono_400Regular',
   },
 });
