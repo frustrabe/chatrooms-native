@@ -13,7 +13,7 @@ import {
   RobotoMono_700Bold,
   RobotoMono_400Regular_Italic,
 } from "@expo-google-fonts/roboto-mono";
-
+import Logout from "./src/components/Logout";
 const Stack = createNativeStackNavigator();
 
 WebBrowser.maybeCompleteAuthSession();
@@ -53,6 +53,10 @@ export default function App() {
             name="Chatrooms"
             component={ChatroomsScreen}
             options={{
+              headerLeft: () => <></>,
+              headerRight: ({ navigation }) => (
+                <Logout navigation={navigation} />
+              ),
               title: "Chatrooms",
             }}
           />

@@ -41,7 +41,6 @@ const Toolbox = forwardRef((props, ref) => {
         onPress={async () => {
           await saveMessage(text, chatroomId, user.photoURL, user.displayName);
           setText("");
-          await fetchData();
         }}
       />
     </View>

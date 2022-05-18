@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { StyleSheet, Text, View, Platform } from "react-native";
 
@@ -7,6 +7,8 @@ import { getChatroom } from "../data/chatrooms";
 import Messages from "../components/Messages";
 import Toolbox from "../components/Toolbox";
 import KeyboardSpacer from "react-native-keyboard-spacer";
+
+import { getDoc, doc, onSnapshot, collection } from "firebase/firestore";
 
 export default function ChatroomScreen({ route }) {
   const { chatroomId } = route.params;
@@ -30,8 +32,15 @@ export default function ChatroomScreen({ route }) {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [chatroomId]);
+    const messagesRef = collection(db, "chatrooms", chatroomId, "messages");
+    const unsub = onSnapshot(messagesRef, () => {
+      fetchData();
+    });
+
+    return () => {
+      unsub();
+    };
+  }, []);
 
   useEffect(() => {
     if (flatListRef.current)
@@ -49,11 +58,7 @@ export default function ChatroomScreen({ route }) {
   return (
     <View style={styles.inner}>
       <Messages chatroom={chatroom} ref={flatListRef} />
-      <Toolbox
-        fetchData={fetchData}
-        chatroomId={chatroomId}
-        ref={flatListRef}
-      />
+      <Toolbox chatroomId={chatroomId} ref={flatListRef} />
 
       {Platform.OS === "ios" && <KeyboardSpacer />}
     </View>
