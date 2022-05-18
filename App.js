@@ -29,14 +29,38 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerTintColor: "#fff",
+            headerStyle: { backgroundColor: "#255AA5", },
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: "RobotoMono_700Bold",
+              color: "#fff"
+            }
+          }}
+        >
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{ title: "Welcome" }}
+            options={{
+              title: "Log In",
+            }}
           />
-          <Stack.Screen name="Chatrooms" component={ChatroomsScreen} />
-          <Stack.Screen name="Chatroom" component={ChatroomScreen} />
+          <Stack.Screen
+            name="Chatrooms"
+            component={ChatroomsScreen}
+            options={{
+              title: "Chatrooms",
+            }}
+          />
+          <Stack.Screen
+            name="Chatroom"
+            component={ChatroomScreen}
+            options={{
+              title: "Chatroom",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

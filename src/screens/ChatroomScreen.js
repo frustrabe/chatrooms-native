@@ -33,8 +33,8 @@ export default function ChatroomScreen({ route }) {
 
   if (!chatroom) {
     return (
-      <View style={{ flex: 1 }}>
-        <Text>Loading</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ fontFamily: "RobotoMono_400Regular" }}>Loading...</Text>
       </View>
     );
   }

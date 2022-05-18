@@ -45,7 +45,7 @@ export default function Message({
 const styles = StyleSheet.create({
   me: {
     alignSelf: "flex-end",
-    backgroundColor: "#006AFF",
+    backgroundColor: "#569ED6",
   },
   them: {
     alignSelf: "flex-start",
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoMono_400Regular",
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    width: 40,
+    height: 40,
+    borderRadius: 40,
   },
 });

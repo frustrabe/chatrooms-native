@@ -28,13 +28,13 @@ const Toolbox = forwardRef((props, ref) => {
       <AntDesign style={{ width: "10%", margin: 4, padding: 4, }}
         name="picture"
         size={30}
-        color="#006AFF"
+        color="#256DA5"
       />
 
       <Ionicons style={{ width: "10%", margin: 4, padding: 4, }}
         name="send"
         size={30}
-        color="#006AFF"
+        color="#256DA5"
         onPress={async () => {
           await saveMessage(text, chatroomId, user.photoURL, user.displayName);
           setText("");
