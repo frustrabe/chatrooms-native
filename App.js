@@ -11,6 +11,7 @@ import {
   RobotoMono_400Regular,
   RobotoMono_500Medium,
   RobotoMono_700Bold,
+  RobotoMono_400Regular_Italic,
 } from "@expo-google-fonts/roboto-mono";
 
 const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ export default function App() {
     RobotoMono_400Regular,
     RobotoMono_500Medium,
     RobotoMono_700Bold,
+    RobotoMono_400Regular_Italic,
   });
 
   if (!fontsLoaded) {
@@ -32,12 +34,12 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerTintColor: "#fff",
-            headerStyle: { backgroundColor: "#255AA5", },
+            headerStyle: { backgroundColor: "#255AA5" },
             headerTitleAlign: "center",
             headerTitleStyle: {
               fontFamily: "RobotoMono_700Bold",
-              color: "#fff"
-            }
+              color: "#fff",
+            },
           }}
         >
           <Stack.Screen

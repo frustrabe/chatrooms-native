@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 
 export default function ChatroomListItem({
   name,
@@ -12,7 +12,8 @@ export default function ChatroomListItem({
       color="#fff"
       activeOpacity={0.5}
       underlayColor="#7FB4FF"
-      onPress={() => navigateToChatroom(chatroomId)}>
+      onPress={() => navigateToChatroom(chatroomId)}
+    >
       <View style={styles.item}>
         <Text style={styles.title}>{name}</Text>
         <Entypo
@@ -35,23 +36,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderRadius: 8,
     borderWidth: 1,
+    width: "auto",
     borderColor: "#E3EFFF",
-    fontFamily: 'RobotoMono_400Regular',
-
+    fontFamily: "RobotoMono_400Regular",
   },
   title: {
     fontSize: 30,
-    color: 'white',
-    fontFamily: 'RobotoMono_500Medium',
+    color: "white",
+    fontFamily: "RobotoMono_500Medium",
   },
   description: {
     flex: 1,
     fontSize: 18,
-    color: 'white',
-    fontFamily: 'RobotoMono_400Regular',
+    color: "white",
+    fontFamily: "RobotoMono_400Regular",
     maxWidth: "90%",
   },
   chevron: {
     alignSelf: "flex-end",
-  }
+  },
 });

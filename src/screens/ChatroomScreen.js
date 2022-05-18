@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
+
 import { getChatroom } from "../data/chatrooms";
 import Messages from "../components/Messages";
 import Toolbox from "../components/Toolbox";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 
 export default function ChatroomScreen({ route }) {
   const { chatroomId } = route.params;
@@ -31,6 +33,11 @@ export default function ChatroomScreen({ route }) {
     fetchData();
   }, [chatroomId]);
 
+  useEffect(() => {
+    if (flatListRef.current)
+      flatListRef.current.scrollToEnd({ animated: true });
+  }, [chatroom]);
+
   if (!chatroom) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -40,13 +47,15 @@ export default function ChatroomScreen({ route }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.inner}>
       <Messages chatroom={chatroom} ref={flatListRef} />
       <Toolbox
         fetchData={fetchData}
         chatroomId={chatroomId}
         ref={flatListRef}
       />
+
+      {Platform.OS === "ios" && <KeyboardSpacer />}
     </View>
   );
 }
@@ -56,9 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  bubble: {
-    flexGrow: 1,
-    justifyContent: "flex-start",
-    backgroundColor: "#7C83FD",
+  inner: {
+    flex: 1,
   },
 });

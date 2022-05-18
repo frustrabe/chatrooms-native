@@ -23,10 +23,6 @@ const Messages = forwardRef((props, ref) => {
     />
   );
 
-  useEffect(() => {
-    ref.current.scrollToEnd({ animated: true });
-  }, [messages]);
-
   return (
     <VirtualizedList
       ref={ref}

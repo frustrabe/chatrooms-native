@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { RefreshControl, SafeAreaView, FlatList, StyleSheet, StatusBar } from "react-native";
+import {
+  RefreshControl,
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
 import ChatroomListItem from "../components/ChatroomListItem";
 import { getChatrooms } from "../data/chatrooms";
 
@@ -41,8 +47,8 @@ export default function ChatroomsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: StatusBar.currentHeight || 0,
     backgroundColor: "white",
     borderRadius: 8,
+    paddingVertical: 8,
   },
 });

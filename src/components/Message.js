@@ -11,65 +11,84 @@ export default function Message({
 }) {
   const [user] = useAuthState(auth);
 
-  if (user.uid === uid) {
-    return (
-      <View style={[styles.message, styles.me]}>
+  return (
+    <View
+      style={[
+        styles.message,
+        user.uid === uid ? styles.meAlign : styles.themAlign,
+      ]}
+    >
+      <View style={styles.avatarWrapper}>
         <Image
           style={styles.avatar}
           source={{
             uri: avatar,
           }}
         />
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.title}>{humanizedCreatedAt}</Text>
+      </View>
+      <View
+        style={[
+          styles.contentWrapper,
+          user.uid === uid ? styles.meBackground : styles.themBackground,
+        ]}
+      >
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.time}>{humanizedCreatedAt}</Text>
         <Text style={styles.text}>{text}</Text>
       </View>
-    );
-  }
-
-  return (
-    <View style={[styles.message, styles.them]}>
-      <Image
-        style={styles.avatar}
-        source={{
-          uri: avatar,
-        }}
-      />
-      <Text style={styles.title}>{name}</Text>
-      <Text style={styles.title}>{humanizedCreatedAt}</Text>
-      <Text style={styles.text}>{text}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  me: {
+  avatarWrapper: {
+    width: 40,
+    marginRight: 8,
+  },
+  contentWrapper: {
+    flexGrow: 1,
+    borderRadius: 20,
+    padding: 10,
+    maxWidth: "82%",
+    backgroundColor: "red",
+  },
+  meAlign: {
     alignSelf: "flex-end",
+  },
+  meBackground: {
     backgroundColor: "#569ED6",
   },
-  them: {
+  themAlign: {
     alignSelf: "flex-start",
+  },
+  themBackground: {
     backgroundColor: "#808080",
   },
   message: {
-    width: "60%",
-
-    padding: 10,
+    flex: 1,
+    flexDirection: "row",
+    width: "80%",
     marginVertical: 8,
-    marginHorizontal: 8,
-    borderRadius: 20,
+    paddingHorizontal: 10,
     fontFamily: "RobotoMono_400Regular",
   },
-  title: {
-    fontSize: 10,
+  name: {
+    fontSize: 14,
+    color: "white",
+    paddingBottom: 4,
     justifyContent: "center",
     fontFamily: "RobotoMono_400Regular",
   },
+  time: {
+    fontSize: 10,
+    color: "white",
+    justifyContent: "center",
+    fontFamily: "RobotoMono_400Regular_Italic",
+  },
   text: {
-    flex: 1,
-    fontSize: 20,
+    fontSize: 18,
     includeFontPadding: false,
-    textAlignVertical: "center",
+    maxWidth: "auto",
     color: "white",
     fontFamily: "RobotoMono_400Regular",
   },

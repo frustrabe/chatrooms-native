@@ -21,17 +21,20 @@ const Toolbox = forwardRef((props, ref) => {
           borderRadius: 8,
           fontFamily: "RobotoMono_400Regular",
         }}
+        multiline={true}
         onChangeText={setText}
         value={text}
         placeholder="Type something.."
       />
-      <AntDesign style={{ width: "10%", margin: 4, padding: 4, }}
+      <AntDesign
+        style={{ width: "10%", margin: 4, padding: 4 }}
         name="picture"
         size={30}
         color="#256DA5"
       />
 
-      <Ionicons style={{ width: "10%", margin: 4, padding: 4, }}
+      <Ionicons
+        style={{ width: "10%", margin: 4, padding: 4 }}
         name="send"
         size={30}
         color="#256DA5"
