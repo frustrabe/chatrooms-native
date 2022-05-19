@@ -11,7 +11,11 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import moment from "moment";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getChatrooms() {
   const chatroomsRef = collection(db, "chatrooms");
@@ -63,7 +67,8 @@ export async function getChatroom(chatroomId) {
         text: doc.data().text,
         uid: doc.data().uid,
         name: doc.data().displayName,
-        avatar: doc.data().photoURL,
+        avatar: doc.data().avatarURL,
+        imageUrl: doc.data().imageUrl,
         createdAt: createdAt,
         humanizedCreatedAt: humanizedDate,
       };
@@ -84,19 +89,48 @@ export async function getChatroom(chatroomId) {
   return null;
 }
 
-export async function saveMessage(
-  inputText,
-  chatroomId,
-  photoURL,
-  displayName
-) {
+export async function saveMessage(inputText, chatroomId, imageUrl) {
   const messagesRef = collection(db, "chatrooms", chatroomId, "messages");
 
   return await addDoc(messagesRef, {
     text: inputText,
     uid: auth.currentUser.uid,
     createdAt: Timestamp.now(),
-    displayName: displayName,
-    photoURL: photoURL,
+    displayName: auth.currentUser.displayName,
+    avatarURL: auth.currentUser.photoURL,
+    imageUrl: imageUrl,
   });
+}
+
+export async function sendImage(uri, chatroomId) {
+  // Why are we using XMLHttpRequest? See:
+  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError("Network request failed"));
+    };
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+
+  const fileRef = ref(
+    getStorage(),
+    "/chatrooms/" + chatroomId + "messages/" + uuidv4()
+  );
+  const result = await uploadBytes(fileRef, blob);
+
+  console.log(result);
+
+  // We're done with the blob, close and release it
+  blob.close();
+
+  const imageUrl = await getDownloadURL(fileRef);
+
+  await saveMessage(null, chatroomId, imageUrl);
 }

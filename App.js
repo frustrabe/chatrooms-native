@@ -36,7 +36,7 @@ export default function App() {
           screenOptions={{
             headerTintColor: "#fff",
             headerStyle: {
-              backgroundColor: "#569ED6"
+              backgroundColor: "#569ED6",
             },
             headerTitleAlign: "center",
             headerTitleStyle: {
@@ -55,13 +55,11 @@ export default function App() {
           <Stack.Screen
             name="Chatrooms"
             component={ChatroomsScreen}
-            options={{
+            options={({ navigation }) => ({
               headerLeft: () => <></>,
-              headerRight: ({ navigation }) => (
-                <Logout navigation={navigation} />
-              ),
+              headerRight: () => <Logout navigation={navigation} />,
               title: "Chatrooms",
-            }}
+            })}
           />
           <Stack.Screen
             name="Chatroom"

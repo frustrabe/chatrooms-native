@@ -17,6 +17,7 @@ const Messages = forwardRef((props, ref) => {
       name={item.name}
       avatar={item.avatar}
       text={item.text}
+      imageUrl={item.imageUrl}
       uid={item.uid}
       createdAt={item.createdAt}
       humanizedCreatedAt={item.humanizedCreatedAt}

@@ -56,7 +56,7 @@ export default function ChatroomScreen({ route }) {
   }
 
   return (
-    <View style={styles.inner}>
+    <View style={styles.container}>
       <Messages chatroom={chatroom} ref={flatListRef} />
       <Toolbox chatroomId={chatroomId} ref={flatListRef} />
 
@@ -68,17 +68,14 @@ export default function ChatroomScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#e1f1ff",
   },
   loadingView: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   loadingText: {
-    fontFamily: "RobotoMono_400Regular"
-  },
-  inner: {
-    flex: 1,
+    fontFamily: "RobotoMono_400Regular",
   },
 });

@@ -4,10 +4,15 @@ import { View, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import { auth } from "../firebase";
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithCredential,
+  FacebookAuthProvider,
+} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import * as Google from "expo-auth-session/providers/google";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import * as Facebook from "expo-facebook";
 
 export default function HomeScreen({ navigation }) {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -32,16 +37,34 @@ export default function HomeScreen({ navigation }) {
     }
   }, [user]);
 
+  async function loginWithFacebook() {
+    await Facebook.initializeAsync({
+      appId: "696858264923230",
+      appName: "Chatrooms",
+    });
+
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ["public_profile"],
+    });
+
+    if (type === "success") {
+      // Build Firebase credential with the Facebook access token.
+      const credential = FacebookAuthProvider.credential(token);
+
+      // Sign in with credential from the Facebook user.
+      signInWithCredential(auth, credential).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+
   return (
     <View style={styles.viewMain}>
       <View style={styles.logInView}>
-        <Text style={styles.logInText}>
-          Log In with:
-        </Text>
+        <Text style={styles.logInText}>Log In with:</Text>
       </View>
 
-      <View
-        style={styles.iconGoogle}>
+      <View style={styles.iconGoogle}>
         <Pressable
           onPress={() => {
             promptAsync();
@@ -51,18 +74,14 @@ export default function HomeScreen({ navigation }) {
         </Pressable>
       </View>
 
-      <View
-        style={styles.iconFacebook}>
-        <Pressable onPress={() => onPressFunction}>
+      <View style={styles.iconFacebook}>
+        <Pressable onPress={async () => loginWithFacebook()}>
           <AntDesign name="facebook-square" size={50} color="royalblue" />
         </Pressable>
       </View>
 
       {user ? (
-        <Text
-          style={styles.loggedUserText}>
-          Logged in as: {user.email}
-        </Text>
+        <Text style={styles.loggedUserText}>Logged in as: {user.email}</Text>
       ) : null}
     </View>
   );
@@ -107,6 +126,6 @@ const styles = StyleSheet.create({
   loggedUserText: {
     fontFamily: "RobotoMono_500Medium",
     padding: 16,
-    color: "#fff"
+    color: "#fff",
   },
-})
+});

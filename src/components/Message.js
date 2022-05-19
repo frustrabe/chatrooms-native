@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 export default function Message({
   name,
   text,
+  imageUrl,
   uid,
   avatar,
   humanizedCreatedAt,
@@ -34,7 +35,15 @@ export default function Message({
       >
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.time}>{humanizedCreatedAt}</Text>
-        <Text style={styles.text}>{text}</Text>
+        {text && <Text style={styles.text}>{text}</Text>}
+        {imageUrl && (
+          <Image
+            style={styles.image}
+            source={{
+              uri: imageUrl,
+            }}
+          />
+        )}
       </View>
     </View>
   );
@@ -50,7 +59,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     maxWidth: "84%",
-    backgroundColor: "red",
   },
   meAlign: {
     alignSelf: "flex-end",
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   themBackground: {
-    backgroundColor: "#9DD2FF",
+    backgroundColor: "#7ea8cc",
   },
   message: {
     flex: 1,
@@ -96,5 +104,10 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 40,
+  },
+  image: {
+    flex: 1,
+    minWidth: "100%",
+    height: 200,
   },
 });

@@ -1,48 +1,63 @@
 import { TextInput, View, StyleSheet } from "react-native";
 import { useState, forwardRef } from "react";
-import { saveMessage } from "../data/chatrooms";
+import { saveMessage, sendImage } from "../data/chatrooms";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import * as ImagePicker from "expo-image-picker";
 
 const Toolbox = forwardRef((props, ref) => {
   const { chatroomId } = props;
   const [text, setText] = useState("");
-  const [user] = useAuthState(auth);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      sendImage(result.uri, chatroomId);
+    }
+  };
 
   return (
-    <View style={styles.view}>
-      <TextInput
-        style={styles.textInput}
-        multiline={true}
-        onChangeText={setText}
-        value={text}
-        placeholder="Type something.."
-      />
-      <AntDesign
-        style={styles.picture}
-        name="picture"
-        size={30}
-        color="#255AA5"
-      />
-      <Ionicons
-        style={styles.send}
-        name="send"
-        size={30}
-        color="#255AA5"
-        onPress={async () => {
-          await saveMessage(text, chatroomId, user.photoURL, user.displayName);
-          setText("");
-        }}
-      />
-    </View>
+    <>
+      <View style={styles.view}>
+        <TextInput
+          style={styles.textInput}
+          multiline={true}
+          onChangeText={setText}
+          value={text}
+          placeholder="Type something.."
+        />
+        <AntDesign
+          onPress={pickImage}
+          style={styles.picture}
+          name="picture"
+          size={30}
+          color="#255AA5"
+        />
+        <Ionicons
+          style={styles.send}
+          name="send"
+          size={30}
+          color="#255AA5"
+          onPress={async () => {
+            await saveMessage(text, chatroomId, null);
+            setText("");
+          }}
+        />
+      </View>
+    </>
   );
 });
 
 const styles = StyleSheet.create({
   view: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   textInput: {
     margin: 12,
@@ -55,13 +70,13 @@ const styles = StyleSheet.create({
   picture: {
     width: "10%",
     margin: 4,
-    padding: 4
+    padding: 4,
   },
   send: {
     width: "10%",
     margin: 4,
-    padding: 4
+    padding: 4,
   },
-})
+});
 
 export default Toolbox;

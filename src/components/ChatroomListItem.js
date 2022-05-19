@@ -9,40 +9,38 @@ export default function ChatroomListItem({
 }) {
   return (
     <TouchableHighlight
-      color="#fff"
-      activeOpacity={0.5}
-      underlayColor="#fff"
+      color="red"
+      activeOpacity={0.63333}
+      underlayColor="#e1f1ff"
       onPress={() => navigateToChatroom(chatroomId)}
     >
-      <View>
-
+      <View style={styles.roomWrapper}>
         <View style={styles.room}>
           <Text style={styles.title}>{name}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>
 
         <View style={styles.chevron}>
-          <Entypo
-            name="chevron-right"
-            size={28}
-            color="white"
-          />
+          <Entypo name="chevron-right" size={28} color="#569ED6" />
         </View>
-
       </View>
     </TouchableHighlight>
   );
 }
 
 const styles = StyleSheet.create({
+  roomWrapper: {
+    flex: 1,
+    flexDirection: "row",
+  },
   room: {
     flexDirection: "column",
     backgroundColor: "#256DA5",
     alignSelf: "flex-start",
-    width: "85%",
+    width: "90%",
     padding: 10,
     marginVertical: 8,
-    marginHorizontal: 8,
+    marginLeft: 8,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#E3EFFF",
@@ -61,11 +59,7 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
   },
   chevron: {
-    flexDirection: "row",
-    alignSelf: "flex-end",
-    marginHorizontal: 8,
     justifyContent: "center",
     width: "10%",
-
   },
 });
