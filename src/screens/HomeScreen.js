@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, StyleSheet, View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
 
@@ -8,12 +8,6 @@ import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import * as Google from "expo-auth-session/providers/google";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import {
-  useFonts,
-  RobotoMono_400Regular,
-  RobotoMono_500Medium,
-  RobotoMono_700Bold,
-} from "@expo-google-fonts/roboto-mono";
 
 export default function HomeScreen({ navigation }) {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -39,32 +33,15 @@ export default function HomeScreen({ navigation }) {
   }, [user]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 5,
-        }}
-      >
-        <Text style={{ fontFamily: "RobotoMono_500Medium" }}>Log In with:</Text>
+    <View style={styles.viewMain}>
+      <View style={styles.logInView}>
+        <Text style={styles.logInText}>
+          Log In with:
+        </Text>
       </View>
 
       <View
-        style={{
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 5,
-        }}
-      >
+        style={styles.iconGoogle}>
         <Pressable
           onPress={() => {
             promptAsync();
@@ -72,7 +49,10 @@ export default function HomeScreen({ navigation }) {
         >
           <AntDesign name="google" size={50} color="#DB4437" />
         </Pressable>
+      </View>
 
+      <View
+        style={styles.iconFacebook}>
         <Pressable onPress={() => onPressFunction}>
           <AntDesign name="facebook-square" size={50} color="royalblue" />
         </Pressable>
@@ -80,14 +60,53 @@ export default function HomeScreen({ navigation }) {
 
       {user ? (
         <Text
-          style={{
-            fontFamily: "RobotoMono_500Medium",
-            padding: 20,
-          }}
-        >
+          style={styles.loggedUserText}>
           Logged in as: {user.email}
         </Text>
       ) : null}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  viewMain: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#569ED6",
+  },
+  logInView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+  },
+  logInText: {
+    fontFamily: "RobotoMono_500Medium",
+    color: "#fff",
+    padding: 16,
+  },
+  iconGoogle: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 4,
+    margin: 8,
+    backgroundColor: "#fff", //#F4B400
+    borderRadius: 8,
+  },
+  iconFacebook: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 4,
+    margin: 8,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+  },
+  loggedUserText: {
+    fontFamily: "RobotoMono_500Medium",
+    padding: 16,
+    color: "#fff"
+  },
+})

@@ -14,6 +14,7 @@ import {
   RobotoMono_400Regular_Italic,
 } from "@expo-google-fonts/roboto-mono";
 import Logout from "./src/components/Logout";
+
 const Stack = createNativeStackNavigator();
 
 WebBrowser.maybeCompleteAuthSession();
@@ -34,7 +35,9 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerTintColor: "#fff",
-            headerStyle: { backgroundColor: "#255AA5" },
+            headerStyle: {
+              backgroundColor: "#569ED6"
+            },
             headerTitleAlign: "center",
             headerTitleStyle: {
               fontFamily: "RobotoMono_700Bold",
@@ -71,13 +74,4 @@ export default function App() {
       </NavigationContainer>
     );
   }
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  });
 }

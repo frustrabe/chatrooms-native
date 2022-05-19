@@ -49,20 +49,20 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     borderRadius: 20,
     padding: 10,
-    maxWidth: "82%",
+    maxWidth: "84%",
     backgroundColor: "red",
   },
   meAlign: {
     alignSelf: "flex-end",
   },
   meBackground: {
-    backgroundColor: "#569ED6",
+    backgroundColor: "#255AA5",
   },
   themAlign: {
     alignSelf: "flex-start",
   },
   themBackground: {
-    backgroundColor: "#808080",
+    backgroundColor: "#9DD2FF",
   },
   message: {
     flex: 1,

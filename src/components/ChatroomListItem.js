@@ -11,7 +11,7 @@ export default function ChatroomListItem({
     <TouchableHighlight
       color="#fff"
       activeOpacity={0.5}
-      underlayColor="#7FB4FF"
+      underlayColor="#fff"
       onPress={() => navigateToChatroom(chatroomId)}
     >
       <View style={styles.item}>

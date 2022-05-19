@@ -1,6 +1,6 @@
 import { VirtualizedList } from "react-native";
 import Message from "./Message";
-import { forwardRef, useEffect } from "react";
+import { forwardRef } from "react";
 
 const Messages = forwardRef((props, ref) => {
   const { chatroom } = props;

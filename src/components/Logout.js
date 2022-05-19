@@ -1,5 +1,5 @@
+import { RobotoMono_300Light } from "@expo-google-fonts/roboto-mono";
 import { Text, Pressable } from "react-native";
-import { auth } from "../firebase";
 
 export default function Logout({ navigation }) {
   return (
@@ -9,7 +9,12 @@ export default function Logout({ navigation }) {
         navigation.navigate("Home");
       }}
     >
-      <Text>Log out</Text>
+      <Text style={{
+        fontFamily: "RobotoMono_500Medium",
+        color: "#fff",
+      }}>
+        Log out
+      </Text>
     </Pressable>
   );
 }

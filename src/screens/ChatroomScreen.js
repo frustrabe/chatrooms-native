@@ -8,7 +8,7 @@ import Messages from "../components/Messages";
 import Toolbox from "../components/Toolbox";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 
-import { getDoc, doc, onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot, collection } from "firebase/firestore";
 
 export default function ChatroomScreen({ route }) {
   const { chatroomId } = route.params;
@@ -49,8 +49,8 @@ export default function ChatroomScreen({ route }) {
 
   if (!chatroom) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ fontFamily: "RobotoMono_400Regular" }}>Loading...</Text>
+      <View style={styles.loadingView}>
+        <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
   }
@@ -69,6 +69,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  loadingView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  loadingText: {
+    fontFamily: "RobotoMono_400Regular"
   },
   inner: {
     flex: 1,
