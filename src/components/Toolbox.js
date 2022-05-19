@@ -45,8 +45,10 @@ const Toolbox = forwardRef((props, ref) => {
           size={30}
           color="#255AA5"
           onPress={async () => {
-            await saveMessage(text, chatroomId, null);
-            setText("");
+            if (text.length > 0) {
+              await saveMessage(text, chatroomId, null);
+              setText("");
+            }
           }}
         />
       </View>

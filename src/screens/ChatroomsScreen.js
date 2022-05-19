@@ -5,13 +5,14 @@ import { getChatrooms } from "../data/chatrooms";
 
 export default function ChatroomsScreen({ navigation }) {
   const [chatrooms, setChatrooms] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchData = async () => {
+    const chatrooms = await getChatrooms();
+    setChatrooms(chatrooms);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const chatrooms = await getChatrooms();
-      setChatrooms(chatrooms);
-    };
-
     fetchData();
   }, []);
 
@@ -33,6 +34,12 @@ export default function ChatroomsScreen({ navigation }) {
         data={chatrooms}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        onRefresh={async () => {
+          setRefreshing(true);
+          await fetchData();
+          setRefreshing(false);
+        }}
+        refreshing={refreshing}
       />
     </SafeAreaView>
   );

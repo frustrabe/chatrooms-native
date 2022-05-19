@@ -8,6 +8,7 @@ import {
   query,
   orderBy,
   limit,
+  updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
@@ -19,7 +20,8 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function getChatrooms() {
   const chatroomsRef = collection(db, "chatrooms");
-  const chatroomsSnap = await getDocs(chatroomsRef);
+  const q = query(chatroomsRef, orderBy("updatedAt", "desc"));
+  const chatroomsSnap = await getDocs(q);
 
   const chatrooms = [];
   chatroomsSnap.forEach((doc) => {
@@ -91,6 +93,10 @@ export async function getChatroom(chatroomId) {
 
 export async function saveMessage(inputText, chatroomId, imageUrl) {
   const messagesRef = collection(db, "chatrooms", chatroomId, "messages");
+
+  const chatroomRef = doc(db, "chatrooms", chatroomId);
+
+  await updateDoc(chatroomRef, { updatedAt: Timestamp.now() });
 
   return await addDoc(messagesRef, {
     text: inputText,

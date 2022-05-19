@@ -7,7 +7,7 @@ export default function Logout({ navigation }) {
     <Pressable
       onPress={async () => {
         await auth.signOut();
-        navigation.navigate("Home");
+        navigation.navigate("Login");
       }}
     >
       <Text

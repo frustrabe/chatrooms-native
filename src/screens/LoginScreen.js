@@ -14,7 +14,7 @@ import * as Google from "expo-auth-session/providers/google";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import * as Facebook from "expo-facebook";
 
-export default function HomeScreen({ navigation }) {
+export default function LoginScreen() {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     clientId:
       "737316338965-fg4goi2fr9nbigi598araj19okielbmu.apps.googleusercontent.com",
@@ -30,12 +30,6 @@ export default function HomeScreen({ navigation }) {
       signInWithCredential(auth, credential);
     }
   }, [response]);
-
-  useEffect(() => {
-    if (user) {
-      navigation.navigate("Chatrooms");
-    }
-  }, [user]);
 
   async function loginWithFacebook() {
     await Facebook.initializeAsync({
