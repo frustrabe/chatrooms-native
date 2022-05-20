@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChatroomsScreen from "./src/screens/ChatroomsScreen";
@@ -15,7 +14,7 @@ import {
 import Logout from "./src/components/Logout";
 import { useAuthState } from "react-firebase-hooks/auth";
 import LoginScreen from "./src/screens/LoginScreen";
-import { auth } from "./src/firebase";
+import { auth, db } from "./src/firebase";
 const Stack = createNativeStackNavigator();
 
 WebBrowser.maybeCompleteAuthSession();
@@ -27,6 +26,7 @@ export default function App() {
     RobotoMono_700Bold,
     RobotoMono_400Regular_Italic,
   });
+
 
   const [user] = useAuthState(auth);
 
@@ -72,9 +72,7 @@ export default function App() {
               <Stack.Screen
                 name="Chatroom"
                 component={ChatroomScreen}
-                options={{
-                  title: "Chatroom",
-                }}
+                options={{ title: "Chatroom", }}
               />
             </Stack.Group>
           )}

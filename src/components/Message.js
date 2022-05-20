@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoMono_400Regular",
   },
   name: {
-    fontSize: 14,
+    fontSize: 12,
     color: "white",
     paddingBottom: 4,
     justifyContent: "center",
-    fontFamily: "RobotoMono_400Regular",
+    fontFamily: "RobotoMono_500Medium",
   },
   time: {
     fontSize: 10,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoMono_400Regular_Italic",
   },
   text: {
-    fontSize: 18,
+    fontSize: 14,
     includeFontPadding: false,
     maxWidth: "auto",
     color: "white",
@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     minWidth: "100%",
-    height: 200,
+    height: 300,
   },
 });
